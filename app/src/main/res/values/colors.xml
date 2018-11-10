@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#442C2E</color>
+    <color name="colorPrimaryDark">#FBB8AC</color>
+    <color name="colorAccent">#FEDBD0</color>
+
+    <color name="textColorPrimary">#442C2E</color>
+    <color name="toolbarIconColor">@color/textColorPrimary</color>
+    <color name="loginPageBackgroundColor">#FFFFFF</color>
+    <color name="productGridBackgroundColor">#FFFBFA</color>
+    <color name="colorControlActivated">#442C2E</color>
+    <drawable name="touchFeedback">#CFD8DC</drawable>
+    <color name="bg_row_background">#fa315b</color>
+    <color name="item_name">#535353</color>
+    <color name="description">#a9a9a9</color>
+    <color name="white">#FFFFFF</color>
+    <color name="light_gray">#EEEEEE</color>
+
+    <color name="main_item_text_color">#404040</color>
+    <color name="ingredient_item_text_color">#404040</color>
+    <color name="step_item_text_color">#404040</color>
+
+    <color name="fragment_view_step_short_description">#404040</color>
+    <color name="fragment_view_step_description">#404040</color>
+</resources>
