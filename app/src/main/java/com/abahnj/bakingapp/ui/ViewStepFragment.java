@@ -56,6 +56,7 @@ public class ViewStepFragment extends Fragment {
     private int stepNumber;
     private long previousPosition;
     private boolean playState;
+    private String videoUrl;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,6 +71,11 @@ public class ViewStepFragment extends Fragment {
     }
 
     @Override
+    public void onPictureInPictureModeChanged(boolean isInPictureInPictureMode) {
+        binding.playerView.setUseController(!isInPictureInPictureMode);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.
@@ -77,6 +83,38 @@ public class ViewStepFragment extends Fragment {
         binding.setCallback(this);
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (Util.SDK_INT > 23 && videoUrl != null) {
+            initializePlayer(Uri.parse(videoUrl));
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if ((Util.SDK_INT <= 23 || exoPlayer == null)) {
+            initializePlayer(Uri.parse(videoUrl));
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (Util.SDK_INT <= 23) {
+            releasePlayer();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (Util.SDK_INT > 23) {
+            releasePlayer();
+        }
     }
 
     @Override
@@ -121,13 +159,6 @@ public class ViewStepFragment extends Fragment {
         outState.putInt(STEP_NUMBER, stepNumber);
     }
 
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        releasePlayer();
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -167,7 +198,7 @@ public class ViewStepFragment extends Fragment {
         binding.setTotalStepCount(viewModel.getTotalStepCount());
         binding.setStep(step);
 
-        String videoUrl = step.getVideoURL();
+        videoUrl = step.getVideoURL();
         if (!videoUrl.isEmpty()) {
             binding.imageViewPlayer.setVisibility(View.GONE);
             binding.playerView.setVisibility(View.VISIBLE);

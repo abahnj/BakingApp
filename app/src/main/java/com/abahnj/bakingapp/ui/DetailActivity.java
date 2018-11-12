@@ -1,10 +1,14 @@
 package com.abahnj.bakingapp.ui;
 
+import android.app.PictureInPictureParams;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Rational;
 
 import com.abahnj.bakingapp.R;
+import com.google.android.exoplayer2.util.Util;
 
 import javax.inject.Inject;
 
@@ -49,6 +53,18 @@ public class DetailActivity extends AppCompatActivity
         }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    protected void onUserLeaveHint() {
+        if (Util.SDK_INT > 26) {
+            PictureInPictureParams params = new PictureInPictureParams.Builder()
+                    .setAspectRatio(new Rational(16, 9))
+                    .build();
+
+            enterPictureInPictureMode(params);
+        }
+        
     }
 
     @Override

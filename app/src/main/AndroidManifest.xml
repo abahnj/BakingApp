@@ -23,7 +23,9 @@
         </activity>
         <activity
             android:name="com.abahnj.bakingapp.ui.DetailActivity"
-            android:parentActivityName="com.abahnj.bakingapp.ui.MainActivity" />
+            android:parentActivityName="com.abahnj.bakingapp.ui.MainActivity"
+            android:supportsPictureInPicture="true"
+            />
 
         <receiver android:name="com.abahnj.bakingapp.widget.BakingAppWidget">
             <intent-filter>
